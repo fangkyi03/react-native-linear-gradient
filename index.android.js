@@ -3,7 +3,7 @@
  * @flow
  */
 import React, { Component } from 'react';
-import { processColor, StyleSheet, View } from 'react-native';
+import { processColor, StyleSheet, View,TouchableOpacity } from 'react-native';
 
 import NativeLinearGradient, { type Props } from './common';
 
@@ -81,7 +81,11 @@ export default class LinearGradient extends Component<Props> {
     ];
 
     return (
-      <View ref={(component) => { this.gradientRef = component; }} {...otherProps} style={style}>
+      <TouchableOpacity 
+        activeOpacity={1}
+        onPress={()=>this.props.onClick && this.props.onClick()}
+        ref={(component) => { this.gradientRef = component; }} {...otherProps} style={style}
+      >
         <NativeLinearGradient
           style={{position: 'absolute', top: 0, left: 0, bottom: 0, right: 0}}
           colors={colors.map(processColor)}
@@ -94,7 +98,7 @@ export default class LinearGradient extends Component<Props> {
           borderRadii={borderRadiiPerCorner}
         />
         { children }
-      </View>
+      </TouchableOpacity>
     );
   }
 }
